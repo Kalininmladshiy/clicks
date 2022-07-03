@@ -31,7 +31,7 @@ def is_bitlink(url):
     return response.ok
 
 if __name__ == '__main__':
-    token = os.environ.get('TOKEN')
+    token = os.environ.get('BITLY_TOKEN')
     url = input('Введите ссылку, которую хотите сократить: ')
     if is_bitlink(url):
         print('Количество кликов: ', count_clicks(token, url))
