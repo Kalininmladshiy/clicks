@@ -38,9 +38,5 @@ if __name__ == '__main__':
     else:
         try:
             print('Битлинк', shorten_link(token, url))
-            try:
-                print('Количество кликов: ', count_clicks(token, shorten_link(token, url)))
-            except requests.exceptions.HTTPError:
-                print('неверные параметры запроса')
         except requests.exceptions.HTTPError:
             print('Вы неправильно ввели ссылку')
