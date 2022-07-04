@@ -34,7 +34,10 @@ if __name__ == '__main__':
     token = os.environ.get('BITLY_TOKEN')
     url = input('Введите ссылку, которую хотите сократить: ')
     if is_bitlink(url):
-        print('Количество кликов: ', count_clicks(token, url))
+        try:
+            print('Количество кликов: ', count_clicks(token, url))
+        except requests.exceptions.HTTPError:
+            print(response.status_code)
     else:
         try:
             print('Битлинк', shorten_link(token, url))
