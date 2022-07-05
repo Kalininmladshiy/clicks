@@ -1,5 +1,6 @@
 import requests
 import os
+from urllib.parse import urlparse
 
 
 def shorten_link(token, url):
@@ -30,16 +31,22 @@ def is_bitlink(url):
     response = requests.get(url_bitly, headers=headers)
     return response.ok
 
+def new_url(url):
+    url_turple = urlparse(url)
+    return url_turple.netloc + url_turple.path 
+
+
 if __name__ == '__main__':
     token = os.environ.get('BITLY_TOKEN')
     url = input('Введите ссылку, которую хотите сократить: ')
-    if is_bitlink(url):
+    if is_bitlink(new_url(url)):
         try:
-            print('Количество кликов: ', count_clicks(token, url))
-        except requests.exceptions.HTTPError:
-            print(response.status_code)
+            print('Количество кликов: ', count_clicks(token, new_url(url)))
+        except requests.exceptions.HTTPError as e:
+            print(e.response.status_code)
     else:
         try:
             print('Битлинк', shorten_link(token, url))
         except requests.exceptions.HTTPError:
             print('Вы неправильно ввели ссылку')
+    
