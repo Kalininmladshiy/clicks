@@ -31,17 +31,15 @@ def is_bitlink(url):
     response = requests.get(url_bitly, headers=headers)
     return response.ok
 
-def new_url(url):
-    url_turple = urlparse(url)
-    return url_turple.netloc + url_turple.path 
-
 
 if __name__ == '__main__':
     token = os.environ.get('BITLY_TOKEN')
     url = input('Введите ссылку, которую хотите сократить: ')
-    if is_bitlink(new_url(url)):
+    url_turple = urlparse(url)
+    new_url = url_turple.netloc + url_turple.path
+    if is_bitlink(new_url):
         try:
-            print('Количество кликов: ', count_clicks(token, new_url(url)))
+            print('Количество кликов: ', count_clicks(token, new_url))
         except requests.exceptions.HTTPError as e:
             print(e.response.status_code)
     else:
