@@ -30,6 +30,8 @@
 `$ cd project_folder`
 1. Запускаем виртуальное окружение:  
 `$ pipenv shell`
+1. Устанавливаем зависимости из файла `requirements.txt`:  
+`pipenv install -r requirements.txt`
 1. Запускаем файл:  
 `$ clicks.py`
 
