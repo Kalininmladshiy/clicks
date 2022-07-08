@@ -2,7 +2,6 @@ import requests
 import os
 from urllib.parse import urlparse
 from dotenv import load_dotenv
-load_dotenv()
 
 
 def shorten_link(token, url):
@@ -35,6 +34,7 @@ def is_bitlink(url):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     token = os.environ['BITLY_TOKEN']
     url = input('Введите ссылку, которую хотите сократить: ')
     url_parts = urlparse(url)
