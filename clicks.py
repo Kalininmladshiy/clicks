@@ -1,5 +1,6 @@
 import requests
 import os
+import argparse
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 
@@ -36,8 +37,15 @@ def is_bitlink(url):
 if __name__ == '__main__':
     load_dotenv()
     token = os.environ['BITLY_TOKEN']
-    url = input('Введите ссылку, которую хотите сократить: ')
-    url_parts = urlparse(url)
+    parser = argparse.ArgumentParser(description="""Данная программа принимает 
+    от пользователя ссылку, с помощью API сервиса bitly, сокращает ее, считает
+    клики пользователей по укороченной ссылке, далее выводит информацию на экран.
+    Если же пользователь ввел сразу укороченную ссылку, программа только 
+    посчитает клики и выведет данную информацию на экран. Если же пользователь 
+    введет некорректную ссылку, программа напишет об этом.""")
+    parser.add_argument("url", help='Вставьте ссылку')
+    args = parser.parse_args()    
+    url_parts = urlparse(args.url)
     url_to_check = f'{url_parts.netloc}{url_parts.path}'
     if is_bitlink(url_to_check):
         try:
@@ -46,7 +54,7 @@ if __name__ == '__main__':
             print(e.response.status_code)
     else:
         try:
-            print('Битлинк', shorten_link(token, url))
+            print('Битлинк', shorten_link(token, args.url))
         except requests.exceptions.HTTPError:
             print('Вы неправильно ввели ссылку')
     
