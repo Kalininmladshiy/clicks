@@ -37,8 +37,8 @@ def is_bitlink(url):
 if __name__ == '__main__':
     token = os.environ['BITLY_TOKEN']
     url = input('Введите ссылку, которую хотите сократить: ')
-    url_turple = urlparse(url)
-    new_url = url_turple.netloc + url_turple.path
+    url_parts = urlparse(url)
+    new_url = url_parts.netloc + url_parts.path
     if is_bitlink(new_url):
         try:
             print('Количество кликов: ', count_clicks(token, new_url))
