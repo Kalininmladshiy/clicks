@@ -20,7 +20,7 @@ def shorten_link(token, url):
 
 
 def count_clicks(token, bitlink):
-    bitly_url = 'https://api-ssl.bitly.com/v4/bitlinks/{}/clicks/summary'.format(bitlink)
+    bitly_url = f'https://api-ssl.bitly.com/v4/bitlinks/{bitlink}/clicks/summary'
     headers = {'Authorization': 'Bearer {}'.format(token)}
     payload = {
         'units': -1,
@@ -48,8 +48,9 @@ def is_bitlink(url):
 if __name__ == '__main__':
     load_dotenv()
     token = os.environ['BITLY_TOKEN']
-    parser = argparse.ArgumentParser(description="""Программа для сокращения ссылок
-    в сервисе Bitly.""")
+    parser = argparse.ArgumentParser(
+        description='Программа для сокращения ссылок в сервисе Bitly.'
+    )
     parser.add_argument("url", help='Ссылка которую хоите сократить')
     args = parser.parse_args()
     url_parts = urlparse(args.url)
